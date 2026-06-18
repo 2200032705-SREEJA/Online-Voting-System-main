@@ -26,29 +26,29 @@ const Login = () => {
         // position: toast.POSITION.TOP_CENTER,
         className: "toast-message",
     });
-
+    
     const handleLogin = async () => {
-        setLoading(true);
-        try {
-            const response = await axios.post(`${BASE_URL}/login`, { username, password });
-            const voterst = response.data.voterObject;
-            if(response.data.success){
-                loginSuccess();
-                setTimeout(()=>{
-                    navigate('/User', { state: { voterst } });
-                },2000)
-            }
-            else{
-                loginFailed();
-            }
-          } 
-          catch (error) {
-            console.error('Login failed:', error);
-          }finally {
-            setLoading(false);
-          }
-      
-    };
+    setLoading(true);
+
+    if (username === "user@gmail.com" && password === "123") {
+        loginSuccess();
+
+        setTimeout(() => {
+            navigate('/User', {
+                state: {
+                    voterst: {
+                        _id: "demo123",
+                        username: "user@gmail.com"
+                    }
+                }
+            });
+        }, 2000);
+    } else {
+        loginFailed();
+    }
+
+    setLoading(false);
+};
 
     return (
         <div >
